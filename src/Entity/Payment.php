@@ -274,13 +274,23 @@ final class Payment extends \Softr\Asaas\Entity\AbstractEntity
     public $interest;
 
     /**
+     * @var string
+     */
+    public $confirmedDate
+    
+    /**
+     * @var string
+     */
+    public $confirmedDate
+
+    /**
      * @param  string  $dueDate
      */
     public function setDueDate($dueDate)
     {
         $this->dueDate = static::convertDateTime($dueDate);
     }
-
+    
     /**
      * @param  string  $originalDueDate
      */
@@ -319,5 +329,13 @@ final class Payment extends \Softr\Asaas\Entity\AbstractEntity
     public function setEstimatedCreditDate($estimatedCreditDate)
     {
         $this->estimatedCreditDate = static::convertDateTime($estimatedCreditDate);
+    }
+    
+    /**
+     * @param  string  $confirmedDate
+     */
+    public function setConfirmedDate($confirmedDate)
+    {
+        $this->confirmedDate = static::convertDateTime(confirmedDate);
     }
 }
