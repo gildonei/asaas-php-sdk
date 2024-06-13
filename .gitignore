@@ -1,0 +1,8 @@
+# VSCode
+##########################
+.history/
+.svn/
+
+!.vendor/
+.vendor/*
+!.vendor/.gitkeep
