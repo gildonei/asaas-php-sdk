@@ -135,6 +135,22 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
     }
 
     /**
+     * Refund a Payment By Id
+     *
+     * @param   string  $id    Payment Id
+     * @param   array   $data  Payment Data
+     * @return  PaymentEntity
+     */
+    public function refund($id, array $data)
+    {
+        $payment = $this->adapter->post(sprintf('%s/payments/%s/refund', $this->endpoint, $id), $data);
+
+        $payment = json_decode($payment);
+
+        return new PaymentEntity($payment);
+    }
+
+    /**
      * Delete Payment By Id
      *
      * @param  string|int  $id  Payment Id
