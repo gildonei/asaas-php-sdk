@@ -272,16 +272,11 @@ final class Payment extends \Softr\Asaas\Entity\AbstractEntity
      * @var array|string
      */
     public $interest;
-
-    /**
-     * @var string
-     */
-    public $confirmedDate
     
     /**
      * @var string
      */
-    public $confirmedDate
+    public $confirmedDate;
 
     /**
      * @param  string  $dueDate
