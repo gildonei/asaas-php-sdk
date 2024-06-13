@@ -331,6 +331,6 @@ final class Payment extends \Softr\Asaas\Entity\AbstractEntity
      */
     public function setConfirmedDate($confirmedDate)
     {
-        $this->confirmedDate = static::convertDateTime(confirmedDate);
+        $this->confirmedDate = static::convertDateTime($confirmedDate);
     }
 }
