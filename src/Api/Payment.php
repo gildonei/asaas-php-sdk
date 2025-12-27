@@ -71,7 +71,7 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
      *
      * @param   int    $customerId  Customer Id
      * @param   array  $filters     (optional) Filters Array
-     * @return  []|PaymentEntity[]
+     * @return  array|PaymentEntity[]
      */
     public function getByCustomer($customerId, array $filters = [])
     {
