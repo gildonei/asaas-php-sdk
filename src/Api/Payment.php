@@ -3,7 +3,10 @@
 namespace Softr\Asaas\Api;
 
 // Entities
+use Softr\Asaas\Entity\BankSlipLineEntity;
 use Softr\Asaas\Entity\Payment as PaymentEntity;
+use Softr\Asaas\Entity\PixQrCodeEntity;
+use Softr\Asaas\Exception\HttpException;
 
 /**
  * Payment API Endpoint
@@ -68,7 +71,7 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
      *
      * @param   int    $customerId  Customer Id
      * @param   array  $filters     (optional) Filters Array
-     * @return  PaymentEntity
+     * @return  []|PaymentEntity[]
      */
     public function getByCustomer($customerId, array $filters = [])
     {
@@ -88,9 +91,9 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
      *
      * @param   int    $subscriptionId  Subscription Id
      * @param   array  $filters         (optional) Filters Array
-     * @return  PaymentEntity
+     * @return  array|PaymentEntity[]
      */
-    public function getBySubscription($subscriptionId)
+    public function getBySubscription($subscriptionId, array $filters = [])
     {
         $payments = $this->adapter->get(sprintf('%s/subscriptions/%s/payments?%s', $this->endpoint, $subscriptionId, http_build_query($filters)));
 
@@ -119,10 +122,43 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
     }
 
     /**
+     * Return Pìx Qr Code
+     *
+     * @param   int $id Payment Id
+     * @return  PixQrCodeEntity
+     * @throws  HttpException
+     */
+    public function getPixQrCode($id)
+    {
+        $response = $this->adapter->post(sprintf('%s/payments/%s/pixQrCode', $this->endpoint, $id));
+
+        $qrCode = json_decode($response);
+
+        return new PixQrCodeEntity($qrCode);
+    }
+
+    /**
+     * Return the Bank Slip payment identification field
+     *
+     * @param   int $id Payment Id
+     * @return  BankSlipLineEntity
+     * @throws  HttpException
+     */
+    public function getBankSlipIdentificationField($id)
+    {
+        $response = $this->adapter->post(sprintf('%s/payments/%s/identificationField', $this->endpoint, $id));
+
+        $line = json_decode($response);
+
+        return new BankSlipLineEntity($line);
+    }
+
+    /**
      * Update Payment By Id
      *
      * @param   string  $id    Payment Id
      * @param   array   $data  Payment Data
+     * @throws  HttpException
      * @return  PaymentEntity
      */
     public function update($id, array $data)
@@ -159,7 +195,7 @@ class Payment extends \Softr\Asaas\Api\AbstractApi
     {
         $this->adapter->delete(sprintf('%s/payments/%s', $this->endpoint, $id));
     }
-    
+
     /**
      * Delete Payment By Id
      *
