@@ -37,9 +37,9 @@ class GuzzleHttpAdapter implements AdapterInterface
      * Constructor
      *
      * @param  string                $token   Access Token
-     * @param  ClientInterface|null  $client  Client Instance
+     * @param  ?ClientInterface  $client  Client Instance
      */
-    public function __construct($token, ClientInterface $client = null)
+    public function __construct($token, ?ClientInterface $client = null)
     {
         if(version_compare(ClientInterface::MAJOR_VERSION, '6') === 1)
         {
